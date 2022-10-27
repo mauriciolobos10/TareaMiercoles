@@ -1,47 +1,53 @@
 import { Box, Button, Card, CardActions, CardContent, Grid, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { Component }  from 'react';
+import Image from '@jy95/material-ui-image'
 
-const Perro = ({perro,estilo=null, funcionCancelados = null, funcionAceptados = null,estadoBoton=null, cancelado= null}) => {
+const Perro = ({foto,nombre,estilo=null, funcionCancelados = null, funcionAceptados = null,estadoBoton=null, cancelado= null,
+    funcionArrepentirseC=null, funcionArrepentirseA=null}) => {
+    
+    const perroFusion = {perroFoto: foto,perroNombre: nombre}
+    //console.log(perroFusion);
     return(
         
-        <Card direction="row" spacing={2} container >
-            <CardContent>
-                
-                <img
-                    src={perro}
+        <Card direction="row" spacing={2} container>
+            <CardContent sx={{width:500,height:500}}>
+                <h2>{perroFusion.perroNombre}</h2>
+                {/* <img
+                    src={perroFusion.perroFoto}
                     alt="DOG"
                     width="500" height="300" 
-                />
+                    
+                /> */}
+                <Image
+                src={perroFusion.perroFoto}
+                >
+
+                </Image>
             </CardContent>
-            
+            <br></br>
+            <br></br>
+            <br></br>
             <Box
             component="span"
             m={1}
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            >
-                {funcionCancelados && <Button  disabled={estadoBoton} onClick={() => funcionCancelados(perro)} loading={true} 
+            >   
+                {funcionCancelados && <Button  disabled={estadoBoton} onClick={() => funcionCancelados(perroFusion)} loading={true} 
                 variant="contained" color="error" sx={{ height: 40 }}>Rechazar </Button>}
 
-                {funcionAceptados && <Button   disabled={estadoBoton} onClick={() => funcionAceptados(perro)} loading={true}  
+                {funcionAceptados && <Button   disabled={estadoBoton} onClick={() => funcionAceptados(perroFusion)} loading={true}  
                 variant="contained" color="success" sx={{ height: 40 }} >Aceptar </Button>}
-            
+
+                {funcionArrepentirseC && <Button   onClick={() => funcionArrepentirseC(perroFusion)} loading={true}  
+                variant="contained" color="success" sx={{ height: 40 }} >Me arrepenti </Button>}
+
+
+                {funcionArrepentirseA && <Button   onClick={() => funcionArrepentirseA(perroFusion)} loading={true}  
+                variant="contained" color="error" sx={{ height: 40 }} >Me arrepenti </Button>}
             </Box>
-                
-                {/* <Card> 
-                    <Stack direction="row" justifyContent="left">
-                        {funcionCancelados && <Button  disabled={estadoBoton} onClick={() => funcionCancelados(perro)} loading={true} >Rechazar </Button>}
-                    </Stack>
-                    <Stack direction="row" >
-                        {funcionAceptados && <Button variant="contained" disabled={estadoBoton} onClick={() => funcionAceptados(perro)} loading={true} >Aceptar </Button>}  
-                    </Stack>
-                </Card>      */}
-
-                
-
-                
                 
             
         </Card>

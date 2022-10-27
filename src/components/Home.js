@@ -1,4 +1,5 @@
 import { Card, CardContent, Grid, TextField, Typography } from "@mui/material"
+import { Stack } from "@mui/system";
 import axios from "axios";
 
 import React, { Component, useEffect, useState }  from 'react';
@@ -17,33 +18,57 @@ const Home = () => {
     const [aceptados, setAceptados] = useState([]);
     const [cargando, setCargando] = useState();
 
-    const [objetoPrueba, setObjetoPrueba] = useState({perro: ''}); 
+    const [objetoPrueba, setObjetoPrueba] = useState({nombre :'', foto: ''}); 
+    const [nombrePerro, setNombrePerro] = useState(""); 
 
-    console.log("alo");
+    //console.log("alo");
 
     const cargarImagenes = () => {
-        console.log("hola");
+        //console.log("hola");
         setCargando(true); 
-        console.log("verdadero");
+        //console.log("verdadero");
+        
         axios.get("https://dog.ceo/api/breeds/image/random").then(
             (response) => {
                 //console.log(response.data);
-
+                
                 setObjetoPrueba(response.data);
-                setCargando(false);
-                console.log("falso");
+                setNombrePerro(generateRandomString(6));
+                //setObjetoPrueba({...objetoPrueba, nombre: generateRandomString(6)});
+                //setObjetoPrueba({foto: response.data.message, nombre: generateRandomString(6)});
+                //aca Sleep
+                setTimeout(function() {
+                    setCargando(false);
+                  }, 1000);
+                
+                //onsole.log(objetoPrueba);
+                //console.log("falso");
                 //console.log('"'+ response.data.message +'"');
             },
             (error) => {
                 console.log(error);
             }
         );
-        
-
     };
-    const estadoBoton = (event)=> {
-        //setCargando(true);
+
+
+    const  generateRandomString = (num) => {
+        const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let result1= ' ';
+        const charactersLength = characters.length;
+        for ( let i = 0; i < num; i++ ) {
+            result1 += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+    
+        return result1;
     }
+    
+    const displayRandomString = () =>{
+       let randomStringContainer = document.getElementById('random_string'); 
+        randomStringContainer.innerHTML =  generateRandomString(8);    
+    }
+    
+    
     const handleInputChange = (event)=> {
         setFinder(event.target.value);
     }
@@ -55,41 +80,57 @@ const Home = () => {
     const stackCancelados = (itemExterno) => {
         setCancelados((cancelados) => [...cancelados, itemExterno]);
         cargarImagenes();
+        //console.log(itemExterno);
     }
     const stackAceptados = (itemExterno) => {
         setAceptados((aceptados) => [...aceptados, itemExterno]);
         cargarImagenes();
     }
+    const stackArrepentidoC = (itemExterno) => {
+        setAceptados((aceptados) => [...aceptados, itemExterno]);
+        let result = cancelados.filter((item) => item.perroFoto !== itemExterno.perroFoto);
+        setCancelados(result);
+        
+    }
+    const stackArrepentidoA = (itemExterno) => {
+        setCancelados((cancelados) => [...cancelados, itemExterno]);
+        let result = aceptados.filter((item) => item.perroFoto !== itemExterno.perroFoto);
+        setAceptados(result);
+        
+    }
     
-    let estilo = {backgroundColor: 'red'}
+    let estilo = {}
 
 
 
     return (
         
-        <Card>
+        <Card sx={{backgroundImage: 'url(https://wallpaperaccess.com/full/1314846.jpg)'}}>
             <CardContent>
-                
+                <Card>
+                    <h1 >DOGTINDER</h1>
+                </Card>
                 <Grid container spacing={1}>
-                    <Grid item md={4}>
+                    <Grid item xs={4} >
+                    
                     <h1>Cancelados</h1>
                         {cancelados.map((element, index) => (
                             <Perro 
-                                perro= {element} cancelado= {"cancelado"}
+                            foto= {element.perroFoto} nombre= {element.perroNombre} cancelado= {"cancelado"}  funcionArrepentirseC= {stackArrepentidoC}
                             ></Perro>
                         ))}
                     </Grid>
 
-                    <Grid direction="row" spacing={2} justify="flex-end">
+                    <Grid item xs={4}>
                             
-                        <Perro perro= {objetoPrueba.message} funcionCancelados={stackCancelados} funcionAceptados={stackAceptados} estadoBoton={cargando}></Perro>
+                        <Perro foto= {objetoPrueba.message} nombre={nombrePerro} funcionCancelados={stackCancelados} funcionAceptados={stackAceptados} estadoBoton={cargando}></Perro>
                             
                     </Grid>
-                    <Grid item md={4}>
+                    <Grid item xs={4}>
                     <h1>Aceptados</h1>
                         {aceptados.map((element, index) => (
                             <Perro 
-                                perro= {element} cancelado= {"aceptado"}
+                                foto= {element.perroFoto} nombre= {element.perroNombre} cancelado= {"aceptado" } funcionArrepentirseA= {stackArrepentidoA}
                             ></Perro>
                         ))}
                     </Grid>
@@ -105,6 +146,7 @@ const Home = () => {
                 
             </CardContent>        
         </Card>
+    
     );
 }
 
