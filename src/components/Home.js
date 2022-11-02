@@ -1,5 +1,5 @@
-import { Card, CardContent, Grid, TextField, Typography } from "@mui/material"
-import { Stack } from "@mui/system";
+import { Card, CardContent, createTheme, Grid, TextField, Typography } from "@mui/material"
+import { Stack, ThemeProvider } from "@mui/system";
 import axios from "axios";
 
 import React, { Component, useEffect, useState }  from 'react';
@@ -98,6 +98,7 @@ const Home = () => {
         setAceptados(result);
         
     }
+
     
     let estilo = {}
 
@@ -107,10 +108,13 @@ const Home = () => {
         
         <Card sx={{backgroundImage: 'url(https://wallpaperaccess.com/full/1314846.jpg)'}}>
             <CardContent>
-                <Card>
-                    <h1 >DOGTINDER</h1>
-                </Card>
-                <Grid container spacing={1}>
+
+
+            <Typography style={{textAlign: "center"}} variant="h3">Tinder DOG</Typography>
+
+            <br></br>
+            
+                <Grid container spacing={3}>
                     <Grid item xs={4} >
                     
                     <h1>Cancelados</h1>

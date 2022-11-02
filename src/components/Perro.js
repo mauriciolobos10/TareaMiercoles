@@ -10,9 +10,13 @@ const Perro = ({foto,nombre,estilo=null, funcionCancelados = null, funcionAcepta
     //console.log(perroFusion);
     return(
         
-        <Card direction="row" spacing={2} container>
-            <CardContent sx={{width:500,height:500}}>
-                <h2>{perroFusion.perroNombre}</h2>
+        <Card sx={{opacity:1}} direction="row" spacing={2} container 
+        alignItems="center"
+        justifyContent="center">
+            
+            <CardContent sx={{width:500,height:500}} >
+                
+                <h2 style={{textAlign: "center"}}>{perroFusion.perroNombre}</h2>
                 {/* <img
                     src={perroFusion.perroFoto}
                     alt="DOG"
