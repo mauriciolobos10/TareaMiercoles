@@ -9,7 +9,17 @@ const Perro = ({foto,nombre,estilo=null, funcionCancelados = null, funcionAcepta
     const perroFusion = {perroFoto: foto,perroNombre: nombre}
     //console.log(perroFusion);
     return(
-        
+
+        <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: '100vh' }}
+       >
+      
+        <Grid item xs={3}>
         <Card sx={{opacity:1}} direction="row" spacing={2} container 
         alignItems="center"
         justifyContent="center">
@@ -55,6 +65,10 @@ const Perro = ({foto,nombre,estilo=null, funcionCancelados = null, funcionAcepta
                 
             
         </Card>
+        </Grid>      
+       </Grid>
+        
+        
     );
 }
 export default Perro;
