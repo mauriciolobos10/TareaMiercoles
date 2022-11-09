@@ -1,4 +1,4 @@
-import { Card, CardContent, createTheme, Grid, TextField, Typography } from "@mui/material"
+import { Card, CardContent, createTheme, Grid, TextField, Typography, CircularProgress} from "@mui/material"
 import { Stack, ThemeProvider } from "@mui/system";
 import axios from "axios";
 
@@ -19,13 +19,13 @@ const Home = () => {
     const [errors, setErrors] = useState(false);
     const [cancelados, setCancelados] = useState([]);
     const [aceptados, setAceptados] = useState([]);
-    const [cargando, setCargando] = useState(false);
+    //const [cargando, setCargando] = useState(false);
 
     const [objetoPruebaAntiguo, setObjetoPrueba] = useState({nombre :'', foto: ''}); 
     const [nombrePerro, setNombrePerro] = useState(""); 
 
 
-    const { data: objetoPrueba, isLoading: cargandoDos , refetch: recargar} = useBuscarPerro();
+    const { data: objetoPrueba, isLoading: cargandoDos , refetch: recargar, isRefetching: cargando} = useBuscarPerro();
 
   console.log(objetoPrueba);
 
@@ -59,22 +59,6 @@ const Home = () => {
     //     );
     // };
 
-
-    const  generateRandomString = (num) => {
-        const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-        let result1= ' ';
-        const charactersLength = characters.length;
-        for ( let i = 0; i < num; i++ ) {
-            result1 += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-    
-        return result1;
-    }
-    
-    const displayRandomString = () =>{
-       let randomStringContainer = document.getElementById('random_string'); 
-        randomStringContainer.innerHTML =  generateRandomString(8);    
-    }
     
     
     const handleInputChange = (event)=> {
@@ -112,6 +96,8 @@ const Home = () => {
     
     let estilo = {}
 
+    
+
 
 
     return (
@@ -136,9 +122,11 @@ const Home = () => {
                     </Grid>
 
                     <Grid item xs={4}>
-                            {cargandoDos ? (
-                                <LinearProgress></LinearProgress>
-                            ): (objetoPrueba&& <Perro foto= {objetoPrueba.foto} nombre={objetoPrueba.nombre} funcionCancelados={stackCancelados} funcionAceptados={stackAceptados} estadoBoton={cargando}></Perro>
+                            {cargandoDos || cargando ? (
+                                <CircularProgress />
+                                
+                            ): (objetoPrueba&& <Perro foto= {objetoPrueba.foto} nombre={objetoPrueba.nombre} 
+                                funcionCancelados={stackCancelados} funcionAceptados={stackAceptados} estadoBoton={cargando}></Perro>
                         )}
 
                             

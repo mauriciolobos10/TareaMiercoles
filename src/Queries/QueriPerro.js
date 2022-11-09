@@ -14,7 +14,6 @@ export function useBuscarPerro() {
 }
 
 export const buscarPerro = async () => {
-    
     const { data } =  await axios.get("https://dog.ceo/api/breeds/image/random")
     let nombrePerro = generateRandomString(6);
     

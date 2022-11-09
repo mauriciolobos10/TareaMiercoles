@@ -10,35 +10,19 @@ const Perro = ({foto,nombre,estilo=null, funcionCancelados = null, funcionAcepta
     //console.log(perroFusion);
     return(
 
-        <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: '100vh' }}
-       >
       
-        <Grid item xs={3}>
-        <Card sx={{opacity:1}} direction="row" spacing={2} container 
-        alignItems="center"
-        justifyContent="center">
-            
-            <CardContent sx={{width:500,height:500}} >
-                
-                <h2 style={{textAlign: "center"}}>{perroFusion.perroNombre}</h2>
-                {/* <img
+        <Card >
+            <Card>
+
+            <h2 style={{textAlign: "center"}}>{perroFusion.perroNombre}</h2>
+                <img
                     src={perroFusion.perroFoto}
                     alt="DOG"
-                    width="500" height="300" 
-                    
-                /> */}
-                <Image
-                src={perroFusion.perroFoto}
-                >
-
-                </Image>
-            </CardContent>
+                    width="100%" height="100%" 
+                />
+            </Card>
+                
+                
             <br></br>
             <br></br>
             <br></br>
@@ -64,9 +48,7 @@ const Perro = ({foto,nombre,estilo=null, funcionCancelados = null, funcionAcepta
             </Box>
                 
             
-        </Card>
-        </Grid>      
-       </Grid>
+        </Card> 
         
         
     );
